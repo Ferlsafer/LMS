@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<!-- Full Section with Image and Form -->
+<section class="full-width-section">
+    <div class="row full-height" >
+        <!-- Left Side: Image -->
+        <div class="col-md-6 img-side" style="background-image: url('../static/pictures/library.jpg');">
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="col-md-6 form-side d-flex justify-content-center align-items-center">
+            <div class="card w-75 rounded">
+                <div class="card-body">
+                    <h3 class="text-center mb-4 fw-bold">Sign Up</h3>
+                    <form action="url 'handle_registration' " method="POST">
+                        {%{% csrf_token %}%}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name: </label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email: </label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone: </label>
+                            <input type="tel" class="form-control" id="phone" name="email" placeholder="Enter your phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password: </label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-warning btn-block">Login</button>
+                        </div>
+                        <p class="text-center mt-3">Arleady have an account? <a href="#">Sign In</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
