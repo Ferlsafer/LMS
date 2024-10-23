@@ -6,7 +6,7 @@ def home(request):
 
 def handle_registration(request):
     if request.method == 'POST':
-        name = request.POST['full_name']
+        name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
         password = request.POST['password']
@@ -17,8 +17,19 @@ def handle_registration(request):
             password = password
         )
         user.save()
-        return redirect('index.html')
+        return redirect('home')
+    return render(request, 'registration_form.html')
+
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = Borrower.object.get(email==email)
+        if user.password == password:
+            return redirect('home')
     return render(request, 'index.html')
+        
+
 
     
 

@@ -32,7 +32,7 @@ class Borrower(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=15)
-    password = models.CharField(max_length=128)  # Store hashed passwords
+    password = models.CharField(max_length=128, default='12345678')
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
