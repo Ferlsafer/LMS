@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<!-- Full Section with Image and Form -->
+<section class="full-width-section">
+    <div class="row full-height" >
+        <!-- Left Side: Image -->
+        <div class="col-md-6 img-side" style="background-image: url('../static/pictures/library.jpg');">
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="col-md-6 form-side d-flex justify-content-center align-items-center">
+            <div class="card w-75 rounded">
+                <div class="card-body">
+                    <h3 class="text-center mb-4 fw-bold">Sign In</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-warning btn-block">Login</button>
+                        </div>
+                        <p class="text-center mt-3">Don't have an account? <a href="#">Sign up</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
