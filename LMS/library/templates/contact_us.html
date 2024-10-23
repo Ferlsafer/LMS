@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<section class="contact-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Get in Touch</h2>
+        <p class="lead text-center mb-5">
+            We would love to hear from you! Whether you have questions, feedback, or suggestions, feel free to reach out to us.
+        </p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h3>Contact Information</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <strong>Address:</strong> Tabata-Chama, Dar es Salaam
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <strong>Phone:</strong> +255 613 176 484
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <strong>Email:</strong> <a href="mailto:dicksonfredy1@gmail.com">[Library Email]</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <strong>Hours:</strong> Mon - Fri: 9 AM - 5 PM
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h3>Check With Us!</h3>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea name="message" class="form-control" id="message" rows="5" placeholder="Your message here..." required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
