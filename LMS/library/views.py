@@ -4,6 +4,12 @@ from .models import *
 def home(request):
     return render(request, 'index.html')
 
+def about_us(request):
+    return render(request, 'about_us.html')
+
+def contact(request):
+    return render(request, 'contact_us.html')
+
 def handle_registration(request):
     if request.method == 'POST':
         name = request.POST['name']
