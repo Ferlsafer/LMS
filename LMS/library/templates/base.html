@@ -13,10 +13,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-warning sticky-top custom-navbar">
     <div class="container-fluid">
-        <a class="navbar-brand text-light h2 font-weight-bold" href="#">
+        <a class="navbar-brand text-light h2 font-weight-bold" href="{% url 'home' %}">
             LMS
             <i class="fas fa-book"></i>
         </a>
+        <div class="container-fluid text-light d-flex justify-content-center">
+            <h3>Welcome to our LMS <i>(Library Management System)</i></h3>
+        </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,35 +48,41 @@
 <!-- Footer Section -->
 <footer class="text-center text-lg-start bg-warning text-light">
     <div class="container p-4">
-        <section class="mb-4">
-            <div class="d-flex justify-content-center">
-                <a href="https://www.instagram.com" class="social-icon instagram" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com" class="social-icon linkedin" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://wa.me/your-whatsapp-number" class="social-icon whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
+        <div class="row">
+            <!-- Left Column: Social Media Links -->
+            <div class="col-md-4 mb-4">
+                <h5 class="text-uppercase">Connect with us</h5>
+                <div class="d-flex justify-content-center">
+                    <a href="https://www.instagram.com" class="social-icon instagram mx-2" target="_blank">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com" class="social-icon linkedin mx-2" target="_blank">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="https://wa.me/your-whatsapp-number" class="social-icon whatsapp mx-2" target="_blank">
+                        <i class="fab fa-whatsapp fa-lg"></i>
+                    </a>
+                </div>
             </div>
-        </section>
-        <section class="mb-4">
-            <div class="d-flex justify-content-center">
-                <p>Contact us at: <a href="mailto:info@yourcompany.com" class="text-light">dicksonfredy1@gmail.com</a></p>
+
+            <!-- Center Column: Contact Information -->
+            <div class="col-md-4 mb-4">
+                <h5 class="text-uppercase">Contact Us</h5>
+                <p>Email: <a href="mailto:dicksonfredy1@gmail.com" class="text-light">dicksonfredy1@gmail.com</a></p>
+                <p>Phone: <a href="tel:+255613176484" class="text-light">+255 613 176 484</a></p>
             </div>
-        </section>
-        <section class="text-center">
-            <p>
-                <a href="tel:+255613176484" class="btn btn-outline-danger">
-                    Call Us 
-                    <i class="fas fa-phone-alt"></i> 
-                </a>
-            </p>
-        </section>
-        <section class="text-center p-3">
-            <p>© 2024 Library Management System. All rights reserved.</p>
-        </section>
+
+            <!-- Right Column: Call to Action and Copyright -->
+            <div class="col-md-4 mb-4">
+                <h5 class="text-uppercase">Get in Touch</h5>
+                <p>
+                    <a href="tel:+255613176484" class="btn btn-outline-danger">
+                        Call Us <i class="fas fa-phone-alt"></i>
+                    </a>
+                </p>
+            </div>
+            <p class="mb-0 text-center">© 2024 Library Management System. All rights reserved.</p>
+        </div>
     </div>
 </footer>
 

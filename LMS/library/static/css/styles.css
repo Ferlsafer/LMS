@@ -88,6 +88,34 @@
 .contact-section .btn-primary:hover {
   background-color: #0056b3; /* Darker shade on hover */
 }
+.social-icon {
+  color: white; /* Default icon color */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.social-icon:hover {
+  color: #ccc; /* Change to a lighter color on hover */
+}
+
+footer h5 {
+  margin-bottom: 15px; /* Space between heading and content */
+}
+
+.social-icon:hover {
+  color: #ccc; /* Change to a lighter color on hover */
+}
+
+footer h5 {
+  margin-bottom: 15px; /* Space between heading and content */
+}
+footer a {
+  text-decoration: none; /* Remove underline from all links in the footer */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover for better user interaction */
+}
+
 
 
 
