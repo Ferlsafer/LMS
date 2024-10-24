@@ -30,13 +30,13 @@ class Category(models.Model):
 class Borrower(models.Model):
     books = models.ManyToManyField('Book')
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, unique=True)
     phone = models.CharField(max_length=15)
     password = models.CharField(max_length=128, default='12345678')
+    is_admin = models.BooleanField(default=False)
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
-
 
     def __str__(self) -> str:
         return f'Name: {self.name}'
@@ -48,6 +48,15 @@ class BorrowerRecords(models.Model):
     def __str__(self) -> str:
         return f'Borrow Date: {self.borrow_date}, Return Date: {self.return_date}'
     
+class Admin(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    password = models.CharField(max_length=128)
+
+    def __str__(self) -> str:
+        return f'name: {self.name}'
+    
+
 
     
 

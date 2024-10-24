@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Edit book{% endblock %}
+
+{% block content %}
+<section class="full-width-section">
+    <div class="row full-height" >
+        <div class="col-md-12 form-side d-flex justify-content-center align-items-center">
+            <div class="card w-75 rounded">
+                <div class="card-body">
+                    <h2>Edit Book</h2>
+                    <form action="{% url 'edit_book' id %}" method="POST">
+                        {% csrf_token %}
+                        <label>Title:</label>
+                        <input type="text" name="title" value="{{ book.title }}" required><br>
+                    
+                        <label>Author:</label>
+                        <select name="author">
+                            {% for author in authors %}
+                            <option value="{{ author.id }}" {% if author.id == book.author.id %}selected{% endif %}>
+                                {{ author.name }}
+                            </option>
+                            {% endfor %}
+                        </select><br>
+                    
+                        <label>ISBN:</label>
+                        <input type="text" name="isbn" value="{{ book.isbn }}" required><br>
+                    
+                        <label>Publication Date:</label>
+                        <input type="date" name="publication_date" value="{{ book.publication_date }}" required><br>
+                    
+                        <button class="btn btn-warning btn-block" type="submit">Update Book</button>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

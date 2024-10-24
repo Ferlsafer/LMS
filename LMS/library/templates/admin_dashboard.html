@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<section class="full-width-section">
+    <div class="container">
+        <h2 class="text-center my-4">Admin Dashboard</h2>
+
+        <h3 class="mt-4">Add Category</h3>
+        <form action="{% url 'add_category' %}" method="POST" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="category_name" class="form-label">Category Name:</label>
+                <input type="text" name="category_name" id="category_name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Add Category</button>
+        </form>
+
+        <h3 class="mt-4">Add Book and Author</h3>
+        <form action="{% url 'add_book' %}" method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Book Title:</label>
+                <input type="text" name="title" id="title" class="form-control" required>
+                <div class="invalid-feedback">Please enter the book title.</div>
+            </div>
+
+            <h4 class="mt-4">Add Author</h4>
+            <div class="mb-3">
+                <label for="author_name" class="form-label">Author Name:</label>
+                <input type="text" name="author_name" id="author_name" class="form-control" required>
+                <div class="invalid-feedback">Please enter the author's name.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="author_birth_date" class="form-label">Author Birth Date:</label>
+                <input type="date" name="author_birth_date" id="author_birth_date" class="form-control" required>
+                <div class="invalid-feedback">Please select the author's birth date.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="author_biography" class="form-label">Author Biography:</label>
+                <textarea name="author_biography" id="author_biography" class="form-control" rows="3" required></textarea>
+                <div class="invalid-feedback">Please provide a biography for the author.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category:</label>
+                <select name="category" id="category" class="form-select" required>
+                    <option value="" disabled selected>Select a category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="invalid-feedback">Please select a category.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="isbn" class="form-label">ISBN:</label>
+                <input type="text" name="isbn" id="isbn" class="form-control" required>
+                <div class="invalid-feedback">Please enter the ISBN number.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="publication_date" class="form-label">Publication Date:</label>
+                <input type="date" name="publication_date" id="publication_date" class="form-control" required>
+                <div class="invalid-feedback">Please select the publication date.</div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+        </div>
+    </div>
+</section>
+
+<!-- Include Bootstrap JavaScript for form validation -->
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}
