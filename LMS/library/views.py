@@ -47,7 +47,7 @@ def login_user(request):
                     return redirect('admin_dashboard')
                 else:
                     # Redirect to book catalog for normal users
-                    return redirect('book.html')
+                    return redirect('book_catalog')
             else:
                 # Password mismatch case raise error to notify that the password is not valid
                 return render(request, 'index.html', {'error': 'Invalid password'})
@@ -152,10 +152,32 @@ def add_author(request):
 
 def list_books(request):
     books = Book.objects.all()
-    return render(request, 'books.html', {'books': books})
+    categories = Category.objects.all()
 
+    # Get filter and sort parameters from the request sent by the user from the form
+    category_id = request.GET.get('category')
+    sort_by = request.GET.get('sort', 'title')  # Default sort by title
 
-    
+    # This Filter by category if one is selected
+    if category_id:
+        books = books.filter(category=category_id)  # Use 'category' to sort
+
+    # Sort based on the selected option
+    if sort_by == 'author':
+        books = books.order_by('author__name')
+    elif sort_by == 'publication_date':
+        books = books.order_by('publication_date')
+    else:
+        books = books.order_by('title')  # Default sorting by title
+
+    # displays all the data back to the template so that it can be seen in the UI
+    render_data = {
+    'books': books,
+    'categories': categories,
+    'selected_category': category_id,
+    'selected_sort': sort_by,
+    }
+    return render(request, 'books.html', render_data)
 
         
 

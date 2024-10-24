@@ -1,71 +1,71 @@
 {% extends "base.html" %}
-
 {% block title %}List of Books{% endblock %}
 
 {% block content %}
 <section class="full-width-section">
-    <div class="container">
-        <!-- Page Header -->
-        <div class="d-flex justify-content-between align-items-center my-4">
-            <h2 class="text-center">List of Books</h2>
-            <a href="{% url 'add_book' %}" class="btn btn-success">+ Add New Book</a>
-        </div>
-
-        <!-- Books Table -->
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered shadow-sm">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>ISBN</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for book in books %}
-                    <tr>
-                        <td>{{ book.title }}</td>
-                        <td>{{ book.author.name }}</td>
-                        <td>{{ book.isbn }}</td>
-                        <td>
-                            <a href="{% url 'edit_book' book.id %}" class="btn btn-outline-primary btn-sm me-1">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a href="{% url 'delete_book' book.id %}" class="btn btn-outline-danger btn-sm">
-                                <i class="bi bi-trash"></i> Delete
-                            </a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">No books available</td>
-                    </tr>
+    <h2 class="text-center mb-4">List of Books</h2>
+    
+    <!-- Filter and Sorting Form -->
+    <form method="GET" action="{% url 'list_books' %}" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="category">Filter by Category:</label>
+                <select name="category" id="category" class="form-select">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
                     {% endfor %}
-                </tbody>
-            </table>
+                </select>
+            </div>
+            
+            <div class="col-md-4">
+                <label for="sort">Sort by:</label>
+                <select name="sort" id="sort" class="form-select">
+                    <option value="title" {% if selected_sort == "title" %}selected{% endif %}>Title</option>
+                    <option value="author" {% if selected_sort == "author" %}selected{% endif %}>Author</option>
+                    <option value="publication_date" {% if selected_sort == "publication_date" %}selected{% endif %}>Publication Date</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
         </div>
+    </form>
+
+    <!-- Display Books -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Publication Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author.name }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.publication_date }}</td>
+                    <td>
+                        <a href="{% url 'edit_book' book.id %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'delete_book' book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No books found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
-
-<!-- I added the Bootstrap JavaScript for form validation -->
-<script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
-
-<!-- Add Bootstrap Icons CDN for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 {% endblock %}
