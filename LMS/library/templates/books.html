@@ -1,30 +1,56 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Book Categories</h2>
+{% extends "base.html" %}
 
-  <!-- Categories Section -->
-  <div class="row">
-    {% for category, books in categories.items %}
-      <div class="col-md-12 mb-4">
-        <h4>{{ category }}</h4>
-        <div class="row">
-          {% for book in books %}
-            <div class="col-md-3">
-              <div class="card h-100">
-                <img src="{{ book.image_url }}" class="card-img-top" alt="{{ book.title }}">
-                <div class="card-body">
-                  <h5 class="card-title">{{ book.title }}</h5>
-                  <p class="card-text">Author: {{ book.author }}</p>
-                  <p class="card-text">Published: {{ book.published_date }}</p>
-                  <a href="{% url 'book_detail' book.id %}" class="btn btn-warning">View Details</a>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<section class="full-width-section">
+        <h3 class="mt-4">Books</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author.name }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td>
+                            <a href="{% url 'edit_book' book.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_book' book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
+    </div>
+</section>
+
+<!-- Include Bootstrap JavaScript for form validation -->
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 {% endblock %}
