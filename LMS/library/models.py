@@ -7,7 +7,6 @@ class Book(models.Model):
     publication_date = models.DateField()
     isbn = models.CharField(max_length=30)
 
-
     def __str__(self) -> str:
         return f'name: {self.title}'
     

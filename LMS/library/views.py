@@ -19,15 +19,15 @@ def handle_registration(request):
         email = request.POST['email']
         phone = request.POST['phone']
         password = request.POST['password']
-        is_admin = request.POST.get('is_admin') == 'on'  # Checkbox handling
+        is_admin = request.POST.get('is_admin') == 'on'  # I added this for the purpose handlelign normal user and admin temporary
         
         borrower = Borrower.objects.create(
             name=name, email=email, phone=phone, password=password, is_admin=is_admin
         )
         if is_admin:
-            return redirect('admin_dashboard')  # Change 'admin_dashboard' to your admin view URL
+            return redirect('admin_dashboard')  # after registration admin will be sent to admin dashboard direct
         else:
-            return redirect('books.html') 
+            return redirect('books.html') #this will send a normal user to book list page
     return render(request, 'registration_form.html')
 
 def login_user(request):
@@ -36,24 +36,24 @@ def login_user(request):
         password = request.POST.get('password')
 
         try:
-            # Fetch the borrower based on email
+            # I added this to fetch user from the borrower table based on email that used during registration
             user = Borrower.objects.get(email=email)
             
-            # Check if the password matches
+            # Here I check if the password matches with the password stored on the database
             if user.password == password:
-                # Check if the user is an admin
+                # I check if the user is admin or normal user 
                 if user.is_admin:
-                    # Redirect to admin dashboard
+                    # Redirect to admin dashboard if is admin
                     return redirect('admin_dashboard')
                 else:
                     # Redirect to book catalog for normal users
                     return redirect('book.html')
             else:
-                # Password mismatch case
+                # Password mismatch case raise error to notify that the password is not valid
                 return render(request, 'index.html', {'error': 'Invalid password'})
 
         except ObjectDoesNotExist:
-            # If user with the given email does not exist
+            # If user with the given email does not exist raise an error
             return render(request, 'index.html', {'error': 'User does not exist'})
     
     return render(request, 'index.html')
@@ -72,13 +72,13 @@ def book_catalog(request):
     return render(request, 'books.html', {'books': books})
 def add_book(request):
     if request.method == 'POST':
-        # Get book information
+        # Get book information from the form
         title = request.POST['title']
         isbn = request.POST['isbn']
         publication_date = request.POST['publication_date']
         category_id = request.POST['category']
 
-        # Get author information
+        # Get author information from the form
         author_name = request.POST['author_name']
         author_birth_date = request.POST['author_birth_date']
         author_biography = request.POST['author_biography']
@@ -99,7 +99,7 @@ def add_book(request):
             category=category
         )
 
-        return redirect('list_books')  # Redirect to book list after adding
+        return redirect('list_books')  # Redirect to book list after adding all the information from the form
 
     categories = Category.objects.all()
     return render(request, 'add_book.html', {'categories': categories})
@@ -107,16 +107,16 @@ def add_book(request):
 
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    authors = Author.objects.all()  # Assuming you want to list all authors
+    authors = Author.objects.all()  
 
     if request.method == 'POST':
         # Get updated book information
         book.title = request.POST['title']
-        book.author_id = request.POST['author']  # Assuming you're directly assigning the ID
+        book.author_id = request.POST['author']
         book.isbn = request.POST['isbn']
         book.publication_date = request.POST['publication_date']
         book.save()
-        return redirect('list_books')  # Adjust this as needed
+        return redirect('list_books') 
 
     return render(request, 'edit_book.html', {'book': book, 'authors': authors})
 
@@ -141,7 +141,7 @@ def add_author(request):
         birth_date = request.POST.get('birth_date')
         biography = request.POST.get('biography')
 
-        # Debugging: Check if the values are being captured
+        # I added this to make sure the field is filled
         if not name:
             return HttpResponse("Name is required.", status=400)
 
