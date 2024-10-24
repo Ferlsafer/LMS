@@ -25,29 +25,29 @@ This project is built with:
 
 Installation
 To set up the project locally, follow these steps:
-	1. Clone the repository:
+1. Clone the repository:
 	   ```bash
 	   git clone https://github.com/yourusername/library-management-system.git
 	   cd library-management-system
 	   ```
-	2. Create a virtual environment:
+2. Create a virtual environment:
 	   ```bash
 	   python -m venv venv
 	   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 	   ```
-	3. Install dependencies:
+3. Install dependencies:
 	   ```bash
 	   pip install -r requirements.txt
 	   ```
-	4. Run migrations:
+4. Run migrations:
 	   ```bash
 	   python manage.py migrate
 	   ```
-	5. Start the development server:
+5. Start the development server:
 	   ```bash
 	   python manage.py runserver
 	   ```
-	6. Access the application: Open your browser and navigate to `http://127.0.0.1:8000`.
+6. Access the application: Open your browser and navigate to `http://127.0.0.1:8000`.
 
 Usage
 Once the application is running, you can:
