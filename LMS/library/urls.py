@@ -14,5 +14,6 @@ urlpatterns = [
     path('book_catalog/', views.book_catalog, name='book_catalog'),
     path('add_category/', views.add_category, name='add_category'),
     path('authors/add/', views.add_author, name='add_author'),
-    path('list_books', views.list_books, name='list_books'),
+    path('list_books/', views.list_books, name='list_books'),
+    path('add_book/', views.add_book, name="add_book"),
 ]

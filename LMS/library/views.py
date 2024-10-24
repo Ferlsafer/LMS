@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.http import HttpResponseForbidden
 from django.core.exceptions import ObjectDoesNotExist
-
-
+from django.http import HttpResponse
 
 def home(request):
     return render(request, 'index.html')
@@ -71,10 +70,9 @@ def book_catalog(request):
     # Logic to display the book catalog for normal users
     books = Book.objects.all()
     return render(request, 'books.html', {'books': books})
-
 def add_book(request):
     if request.method == 'POST':
-        # Get category and book information
+        # Get book information
         title = request.POST['title']
         isbn = request.POST['isbn']
         publication_date = request.POST['publication_date']
@@ -101,29 +99,32 @@ def add_book(request):
             category=category
         )
 
-        return redirect('books.html')  # Adjust this as needed
+        return redirect('list_books')  # Redirect to book list after adding
 
     categories = Category.objects.all()
-    return render(request, 'books.html', {'categories': categories})
+    return render(request, 'add_book.html', {'categories': categories})
 
 
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
+    authors = Author.objects.all()  # Assuming you want to list all authors
+
     if request.method == 'POST':
+        # Get updated book information
         book.title = request.POST['title']
-        book.author = Author.objects.get(id=request.POST['author'])
+        book.author_id = request.POST['author']  # Assuming you're directly assigning the ID
         book.isbn = request.POST['isbn']
         book.publication_date = request.POST['publication_date']
         book.save()
-        return redirect('admin_dashboard')
-    authors = Author.objects.all()
+        return redirect('list_books')  # Adjust this as needed
+
     return render(request, 'edit_book.html', {'book': book, 'authors': authors})
 
 
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
-    return redirect('admin_dashboard')
+    return redirect('list_books')
 
 def add_category(request):
     if request.method == 'POST':
@@ -133,10 +134,6 @@ def add_category(request):
 
     return render(request, 'admin_dashboard.html')
 
-# views.py
-from django.shortcuts import render, redirect
-from .models import Author
-from django.http import HttpResponse
 
 def add_author(request):
     if request.method == 'POST':
