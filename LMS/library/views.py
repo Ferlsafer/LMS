@@ -110,7 +110,7 @@ def edit_book(request, book_id):
     authors = Author.objects.all()  
 
     if request.method == 'POST':
-        # Get updated book information
+        # Get updated book information after editing it from the editing form 
         book.title = request.POST['title']
         book.author_id = request.POST['author']
         book.isbn = request.POST['isbn']
@@ -130,7 +130,7 @@ def add_category(request):
     if request.method == 'POST':
         category_name = request.POST['category_name']
         Category.objects.create(name=category_name)
-        return redirect('admin_dashboard')  # Redirect back to the admin dashboard
+        return redirect('admin_dashboard')  
 
     return render(request, 'admin_dashboard.html')
 
