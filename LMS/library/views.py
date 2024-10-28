@@ -3,7 +3,12 @@ from .models import *
 from django.http import HttpResponseForbidden
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='login_user')
 def home(request):
     return render(request, 'index.html')
 
@@ -34,29 +39,15 @@ def login_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-
-        try:
-            # I added this to fetch user from the borrower table based on email that used during registration
-            user = Borrower.objects.get(email=email)
-            
-            # Here I check if the password matches with the password stored on the database
-            if user.password == password:
-                # I check if the user is admin or normal user 
-                if user.is_admin:
-                    # Redirect to admin dashboard if is admin
-                    return redirect('admin_dashboard')
-                else:
-                    # Redirect to book catalog for normal users
-                    return redirect('book_catalog')
-            else:
-                # Password mismatch case raise error to notify that the password is not valid
-                return render(request, 'index.html', {'error': 'Invalid password'})
-
-        except ObjectDoesNotExist:
-            # If user with the given email does not exist raise an error
-            return render(request, 'index.html', {'error': 'User does not exist'})
+        user = authenticate(email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('list_books')
+        return redirect('handle_registration')
     
-    return render(request, 'index.html')
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 def admin_dashboard(request):
     '''if not request.user.is_authenticated or not request.user.borrower.is_admin:
