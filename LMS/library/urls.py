@@ -16,4 +16,6 @@ urlpatterns = [
     path('authors/add/', views.add_author, name='add_author'),
     path('list_books/', views.list_books, name='list_books'),
     path('add_book/', views.add_book, name="add_book"),
+    path('user/login', views.login_user, name='login_user'),
+    path('user/logout', views.logout_user, name='logout_user'),
 ]

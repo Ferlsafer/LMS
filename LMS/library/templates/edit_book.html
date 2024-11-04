@@ -35,7 +35,7 @@
 
                             <div class="mb-3">
                                 <label for="publication_date" class="form-label">Publication Date:</label>
-                                <input type="date" name="publication_date" id="publication_date" value="{{ book.publication_date }}" class="form-control" required>
+                                <input type="date" name="publication_date" id="publication_date" value="{{ book.publication_date|date:'Y-m-d' }}" class="form-control" required>
                             </div>
 
                             <div class="d-grid">
