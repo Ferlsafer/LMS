@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -13,7 +14,14 @@ class Book(models.Model):
     category = models.ManyToManyField(Category)
     isbn = models.CharField(max_length=30)
     def __str__(self) -> str:
-        return f'name: {self.title}'
+        return self.user.username
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    phone = models.CharField(max_length=15)
+
+    def __str__(self) -> str:
+        return f'user: {self.user}'
     
 class Author(models.Model):
     name = models.CharField(max_length=100)

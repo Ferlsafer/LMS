@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.decorators import login_required
 
-#@login_required(login_url='login_user')
+@login_required(login_url='login_user')
 def home(request):
     return render(request, 'index.html')
 
@@ -22,16 +22,26 @@ def handle_registration(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
-        phone = request.POST['phone']
+        phone = request.POST['phone']  # phone is for Profile, not User
         password = request.POST['password']
         
-        borrower = User.objects.create(
+        # Create the User object without the phone number
+        user = User.objects.create(
             username=username, 
-            email=email, 
-            phone=phone, 
-            password=password)
+            email=email
+        )
+        # Set and hash the password
+        user.set_password(password)
+        user.save()
+
+        # Create a Profile object linked to the user with the phone number
+        Profile.objects.create(
+            user=user,
+            phone=phone,
+        )
         
         return redirect('login_user')
+    
     return render(request, 'registration_form.html')
 
 def login_user(request):
@@ -59,7 +69,7 @@ def admin_dashboard(request):
 
 def book_catalog(request):
     books = Book.objects.all()
-    return render(request, 'book_catalogy.html', {'books': books})
+    return render(request, 'book_catalog.html', {'books': books})
 def add_book(request):
     if request.method == 'POST':
         title = request.POST['title']
