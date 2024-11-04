@@ -17,8 +17,8 @@
                     <form action="{% url 'register' %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="name" class="form-label">Full Name: </label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                            <label for="username" class="form-label">User Name: </label>
+                            <input type="text" class="form-control" id="name" name="username" placeholder="Enter your username">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address: </label>

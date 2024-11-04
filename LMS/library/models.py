@@ -12,7 +12,6 @@ class Book(models.Model):
     publication_date = models.DateField()
     category = models.ManyToManyField(Category)
     isbn = models.CharField(max_length=30)
-
     def __str__(self) -> str:
         return f'name: {self.title}'
     
@@ -26,9 +25,10 @@ class Author(models.Model):
         return f'{self.name}'
     
 class Borrower(models.Model):
-    name = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, default='dickson')
     email = models.EmailField(max_length=254, unique=True)
     phone = models.CharField(max_length=15)
+
 
     def __str__(self) -> str:
         return f'Name: {self.name}'
