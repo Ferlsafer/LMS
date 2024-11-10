@@ -16,7 +16,6 @@ class Book(models.Model):
     def __str__(self) -> str:
         return self.user.username
 
-#trial comment
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
