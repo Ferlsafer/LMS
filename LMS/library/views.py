@@ -24,6 +24,10 @@ def handle_registration(request):
         email = request.POST['email']
         phone = request.POST['phone']  # phone is for Profile, not User
         password = request.POST['password']
+
+        if username:
+            messages.info(request, 'Username arleady taken')
+            return redirect('register')
         
         # Create the User object without the phone number
         user = User.objects.create(

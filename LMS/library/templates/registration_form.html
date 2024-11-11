@@ -14,6 +14,13 @@
             <div class="card w-75 rounded">
                 <div class="card-body">
                     <h3 class="text-center mb-4 fw-bold">Sign Up</h3>
+                    {% if messages %}
+                        <div class="alert alert-warning">
+                            {% for message in messages %}
+                            <p>{{ message }}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
                     <form action="{% url 'register' %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
