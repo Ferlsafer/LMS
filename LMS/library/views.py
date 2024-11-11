@@ -50,7 +50,9 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
 
-        if user is not None:
+        if user is None:
+            messages.info(request, 'Incorrect username or password!')
+        else:
             login(request, user)
             return redirect('book_catalog')
     return render(request, 'index.html')
